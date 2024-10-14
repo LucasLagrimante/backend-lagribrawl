@@ -1,6 +1,7 @@
 # app.py
 from flask import Flask, jsonify, request
 from scraping.scraper import get_brawler_stats
+import os
 
 app = Flask(__name__)
 
