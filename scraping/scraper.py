@@ -10,14 +10,17 @@ def get_brawler_stats(map_name):
         soup = BeautifulSoup(response.content, 'html.parser')
         # Ajuste a lógica de scraping conforme a estrutura da página
         stats = []
-        for brawler in soup.select('#brawlers>.row .justify-content-center>.d-flex .justify-content-center .p-1'):
-            name = brawler.select_one('.name').text
+        for brawler in soup.select('#brawlers .justify-content-center .justify-content-center'):
+            id = brawler.select_one('.name').text
             win_rate = brawler.select_one('.win-rate').text
             use_rate = brawler.select_one('.use-rate').text
+            star_rate = brawler.select_one('.star-rate').text
+            
             stats.append({
-                'name': name,
-                'win_rate': win_rate,
-                'use_rate': use_rate
+                'brawler': id,
+                'winRate': win_rate,
+                'useRate': use_rate,
+                'starRate': star_rate
             })
         return stats
     else:
