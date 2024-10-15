@@ -1,4 +1,4 @@
-# scraping/scraper.py
+# para debuggar:  flask run --debug
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,16 +11,14 @@ def get_brawler_stats(map_name):
         soup = BeautifulSoup(response.content, 'html.parser')
         # Ajuste a lógica de scraping conforme a estrutura da página
         stats = []
-        brawler_elements = soup.find_all('div', class_='d-flex flex-column justify-content-center')
+        brawler_elements = soup.find_all('div', class_='d-flex justify-content-center p-1')
         for brawler in brawler_elements:
             id = brawler.find('img')['src'].split('/')[-1].replace('.png', '').strip()
-            win_rate = null
-            use_rate = null
-            star_rate = null
-            
+            use_rate = brawler.find('div', class_='text-primary small').get_text().replace('#', '').strip() if brawler.find('div', class_='text-primary small') else None
+            star_rate = brawler.find('div', class_='text-orange small').get_text().replace('%', '').strip() if brawler.find('div', class_='text-orange small') else None
+
             stats.append({
                 'brawler': id,
-                'winRate': win_rate,
                 'useRate': use_rate,
                 'starRate': star_rate
             })
