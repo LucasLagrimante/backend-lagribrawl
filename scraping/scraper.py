@@ -20,8 +20,8 @@ def get_brawler_stats(map_name):
 
             stats.append({
                 'brawler': int(id),
+                'useRate': int(use_rate),
                 'winRate': float(win_rate),
-                'useRate': float(use_rate),
                 'starRate': float(star_rate)
             })
             
