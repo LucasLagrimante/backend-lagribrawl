@@ -24,6 +24,7 @@ def get_brawler_stats(map_name):
                 'useRate': use_rate,
                 'starRate': star_rate
             })
-        return stats
+            
+        return {'data': stats}
     else:
-        return None
+        return {'data': None}
