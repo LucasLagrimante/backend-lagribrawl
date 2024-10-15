@@ -1,4 +1,3 @@
-# para debuggar:  flask run --debug
 import requests
 from bs4 import BeautifulSoup
 

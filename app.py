@@ -1,12 +1,21 @@
-# app.py
+# para debuggar:  flask run --debug
+import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from scraping.scraper import get_brawler_stats
-import os
+from cachetools import TTLCache, cached
 
 app = Flask(__name__)
-CORS(app)
-#CORS(app, origins=['https://lucaslagrimante.github.io'])
+#CORS(app)
+CORS(app, origins=['https://lucaslagrimante.github.io'])
+
+# Configurando um cache com tamanho máximo de 100 itens e tempo de expiração de 300 segundos (5 minutos)
+cache = TTLCache(maxsize=100, ttl=300)
+
+# Função para buscar estatísticas dos brawlers, com cache aplicado
+@cached(cache)
+def fetch_brawler_stats(map_name):
+    return get_brawler_stats(map_name)
 
 @app.route('/api/brawlers', methods=['GET'])
 def brawler_stats():
@@ -14,7 +23,8 @@ def brawler_stats():
     if not map_name:
         return jsonify({'error': 'Map name is required'}), 400
 
-    stats = get_brawler_stats(map_name)
+    # Usando a função com cache
+    stats = fetch_brawler_stats(map_name)
     if stats:
         return jsonify(stats)
     else:
@@ -25,6 +35,5 @@ def home():
     return "Hello, World!"
 
 if __name__ == '__main__':
-    # O Render definirá a porta através da variável de ambiente PORT
-    port = int(os.environ.get("PORT", 5000))  # Porta padrão para desenvolvimento
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
