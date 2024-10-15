@@ -6,8 +6,8 @@ from scraping.scraper import get_brawler_stats
 from cachetools import TTLCache, cached
 
 app = Flask(__name__)
-#CORS(app)
-CORS(app, origins=['https://lucaslagrimante.github.io'])
+CORS(app)
+#CORS(app, origins=['https://lucaslagrimante.github.io'])
 
 # Configurando um cache com tamanho máximo de 100 itens e tempo de expiração de 300 segundos (5 minutos)
 cache = TTLCache(maxsize=100, ttl=300)
