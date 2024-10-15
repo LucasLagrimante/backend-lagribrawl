@@ -9,8 +9,8 @@ app = Flask(__name__)
 #CORS(app)
 CORS(app, origins=['https://lucaslagrimante.github.io'])
 
-# Configurando um cache com tamanho máximo de 100 itens e tempo de expiração de 1 hora
-cache = TTLCache(maxsize=100, ttl=3600)
+# 500 itens | 5 dias
+cache = TTLCache(maxsize=500, ttl=432000)
 
 # Função para buscar estatísticas dos brawlers, com cache aplicado
 @cached(cache)
