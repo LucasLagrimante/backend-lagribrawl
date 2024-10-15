@@ -5,7 +5,7 @@ from scraping.scraper import get_brawler_stats
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['https://lucaslagrimante.github.io'])
 
 @app.route('/api/brawlers', methods=['GET'])
 def brawler_stats():
