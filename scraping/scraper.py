@@ -25,4 +25,4 @@ def get_brawler_stats(map_name):
             
         return {'data': stats}
     else:
-        return None
+        return {'data': None}

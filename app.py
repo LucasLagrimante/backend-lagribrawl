@@ -1,9 +1,11 @@
 # app.py
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from scraping.scraper import get_brawler_stats
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/api/brawlers', methods=['GET'])
 def brawler_stats():
