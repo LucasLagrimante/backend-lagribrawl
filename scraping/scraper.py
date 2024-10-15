@@ -19,10 +19,10 @@ def get_brawler_stats(map_name):
             star_rate = brawler.find('div', class_='text-orange small').get_text().replace('%', '').strip() if brawler.find('div', class_='text-orange small') else None
 
             stats.append({
-                'brawler': id,
-                'winRate': win_rate,
-                'useRate': use_rate,
-                'starRate': star_rate
+                'brawler': int(id),
+                'winRate': float(win_rate),
+                'useRate': float(use_rate),
+                'starRate': float(star_rate)
             })
             
         return {'data': stats}
